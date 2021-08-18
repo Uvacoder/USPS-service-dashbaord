@@ -31,8 +31,8 @@ export const AllMarketDominant = (props) => {
           <Grid item xs={5}>
             <Paper className={classes.paper}>
               <div id="topFirstClassGraphContainer">
-                outtermost FF container
-                <MDCompositeContainer />
+                outtermost FC container
+                <MDCompositeContainer mailClass={"firstClass"} />
               </div>
             </Paper>
           </Grid>
@@ -41,7 +41,7 @@ export const AllMarketDominant = (props) => {
             <Paper className={classes.paper}>
               <div id="topMarketingGraphContainer">
                 outtermost MM container
-                <MDCompositeContainer />
+                <MDCompositeContainer mailClass={"marketingAndPer"} />
               </div>
             </Paper>
           </Grid>

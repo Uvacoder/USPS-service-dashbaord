@@ -1,11 +1,12 @@
 import MDCompositeGraph from "./MDCompositeGraphs";
 
-export const MDCompositeContainer = () => {
+export const MDCompositeContainer = (props) => {
+  const { mailClass } = props;
   return (
     <div>
       {" "}
-      im the composite container
-      <MDCompositeGraph />
+      im the composite container {mailClass}
+      <MDCompositeGraph mailClass={mailClass} />
     </div>
   );
 };

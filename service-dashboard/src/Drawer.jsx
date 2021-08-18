@@ -11,8 +11,6 @@ import { withRouter } from "react-router-dom";
 const Drawer = (props) => {
   const { history } = props;
 
-  console.log(history);
-
   const mailClassNames = [
     {
       text: "First Class",
