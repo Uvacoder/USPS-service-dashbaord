@@ -25,7 +25,7 @@ function App() {
             <Switch>
               <Route
                 exact
-                from="/"
+                from="/all-md"
                 render={(props) => <AllMarketDominant {...props} />}
               />
 

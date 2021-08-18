@@ -39,7 +39,7 @@ const Drawer = (props) => {
   const homeName = [
     {
       text: "All Market Dominant",
-      onClick: () => history.push("/special-services"),
+      onClick: () => history.push("/all-md"),
     },
   ];
 
