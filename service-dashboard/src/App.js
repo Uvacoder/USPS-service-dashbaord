@@ -6,7 +6,7 @@ import myTheme from "./Design/MyTheme";
 
 import { AllMarketDominant } from "./mailClassComponents/AllMarketDominant";
 import { FirstClass } from "./mailClassComponents/FirstClass";
-import { MarketingMail } from "./mailClassComponents/MarketingMail";
+import { MarketingMail } from "./mailClassComponents/MarketingMailComponents/MarketingMailClass";
 import { SpecialServices } from "./mailClassComponents/SpecialServices";
 import { PackageServices } from "./mailClassComponents/PackageServices";
 import { Periodicals } from "./mailClassComponents/Periodicals";

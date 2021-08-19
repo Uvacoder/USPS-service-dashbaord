@@ -2,9 +2,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 
-import annualData from "../Data/annualData.json";
+import annualData from "../../Data/annualData.json";
 
-import ClassLevelGraph from "./ClassLevelGraph";
+import MarketingMailClassGraph from "./MarketingMailClassGraph";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,7 +34,7 @@ export const MarketingMail = () => {
         <Grid item xs={12}>
           <Paper className={classes.paper}>
             Marketing Mail Graph
-            <ClassLevelGraph data={mmAnnualData} />
+            <MarketingMailClassGraph propData={mmAnnualData} />
           </Paper>
         </Grid>
       </Grid>
