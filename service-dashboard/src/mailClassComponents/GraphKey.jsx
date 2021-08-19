@@ -1,33 +1,30 @@
-import Grid from "@material-ui/core/Grid";
+// import Grid from "@material-ui/core/Grid";
 
 export const GraphKey = () => {
   return (
-    <Grid container spacing={2} justifyContent="center">
-      <Grid item xs={1}>
-        <div style={{ height: "10px", width: "10px", backgroundColor: "blue" }}>
-          {" "}
-        </div>
-      </Grid>
-      <Grid item xs={1}>
-        <div>FY 2020 </div>
-      </Grid>
+    <svg>
+      <rect fill="blue" x={20} y={20} width={10} height={10}></rect>
+      <text x={35} y={30}>
+        FY2020
+      </text>
+      <rect fill="steelblue" x={100} y={20} width={10} height={10}></rect>
+      <text x={120} y={30}>
+        {" "}
+        FY2019
+      </text>
+      <line
+        x1={190}
+        y1={25}
+        x2={215}
+        y2={25}
+        strokeWidth={1}
+        stroke="limegreen"
+      />
 
-      <Grid item xs={1}>
-        <div
-          style={{
-            height: "10px",
-            width: "10px",
-            backgroundColor: "steelblue",
-          }}
-        >
-          {" "}
-        </div>
-      </Grid>
-
-      <Grid item xs={1}>
-        <div>FY 2019 </div>
-      </Grid>
-    </Grid>
+      <text x={220} y={30}>
+        Target
+      </text>
+    </svg>
   );
 };
 
