@@ -21,7 +21,6 @@ function App() {
         <Drawer />
         <ThemeProvider theme={myTheme}>
           <div className="App">
-            <div>I'm the main app</div>
             <Switch>
               <Route
                 exact

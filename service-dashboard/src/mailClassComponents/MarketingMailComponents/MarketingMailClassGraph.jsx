@@ -4,7 +4,7 @@ import GraphKey from "../GraphKey";
 
 export const MarketingMailClassGraph = (props) => {
   const { propData } = props;
-  console.log("mm data", propData);
+  //   console.log("mm data", propData);
 
   const [data, setData] = useState({});
 
@@ -21,12 +21,12 @@ export const MarketingMailClassGraph = (props) => {
     graphHeight: 300,
     graphWidth: 500,
     barWidth: 20,
-    marginLeft: 30,
+    marginLeft: 40,
     marginRight: 20,
     marginBottom: 30,
     // barMarginLeft: this.marginLeft + 15,
     marginTop: 20,
-    barMarginLeft: 20 + 15,
+    barMarginLeft: 40 + 15,
   };
 
   const {
@@ -76,7 +76,7 @@ export const MarketingMailClassGraph = (props) => {
       .data(data2020)
       .enter()
       .append("rect")
-      .attr("x", (d, i) => i * interBarMargin + 5)
+      .attr("x", (d, i) => i * interBarMargin + 25)
       .attr("y", (d) => topStart)
       .attr("height", 50)
       .attr("width", 120)
@@ -94,7 +94,7 @@ export const MarketingMailClassGraph = (props) => {
       .data(data2020)
       .enter()
       .append("text")
-      .attr("x", (d, i) => i * interBarMargin + 55)
+      .attr("x", (d, i) => i * interBarMargin + 75)
       .attr("y", topStart + 15)
       .text((d) => d.productAbbrev)
       .attr("text-anchor", "middle")
@@ -145,6 +145,14 @@ export const MarketingMailClassGraph = (props) => {
       .style("stroke", "lightgreen")
       .style("stroke-width", 2)
       .attr("class", "graphicElement targetLines");
+
+    svg
+      .append("text")
+      .text("On-Time (%)")
+      .attr("x", 190)
+      .attr("y", 20)
+      .style("text-anchor", "middle")
+      .attr("transform", "translate(-5,315) rotate(270)");
   }
 
   function removeBars() {
@@ -153,7 +161,13 @@ export const MarketingMailClassGraph = (props) => {
 
   return (
     <div>
-      <svg id="mmClassSvg" height={300} width={850}></svg>
+      <h3>Marketing Mail Products</h3>
+      <svg
+        shapeRendering="crispEdges"
+        id="mmClassSvg"
+        height={300}
+        width={850}
+      ></svg>
       <GraphKey />
     </div>
   );

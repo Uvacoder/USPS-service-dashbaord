@@ -2,15 +2,16 @@
 
 export const GraphKey = () => {
   return (
-    <svg>
-      <rect fill="blue" x={20} y={20} width={10} height={10}></rect>
+    <svg height={50}>
+      <rect fill="steelblue" x={20} y={20} width={10} height={10}></rect>
       <text x={35} y={30}>
-        FY2020
+        FY2019
       </text>
-      <rect fill="steelblue" x={100} y={20} width={10} height={10}></rect>
+
+      <rect fill="blue" x={100} y={20} width={10} height={10}></rect>
       <text x={120} y={30}>
         {" "}
-        FY2019
+        FY2020
       </text>
       <line
         x1={190}
