@@ -1,6 +1,8 @@
 import Typography from "@material-ui/core/Typography";
-import { Card } from "@material-ui/core";
+import { Card, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+
+import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 
 const useStyles = makeStyles({
   root: {
@@ -10,7 +12,8 @@ const useStyles = makeStyles({
 
   titleText: {
     fontSize: 20,
-    marginLeft: "-75px",
+    marginLeft: "-150px",
+    color: "black",
   },
   volNumber: {
     fontSize: 18,
@@ -31,15 +34,28 @@ export const VolumeChange = (props) => {
   console.log(volChangePct);
 
   return (
-    <Card>
+    <div>
       <Typography variant="h5" gutterBottom className={classes.titleText}>
         Total Volume
       </Typography>
 
-      <Typography variant="h5" gutterBottom className={classes.volNumber}>
-        {`${volData.fy2020}M`}
-      </Typography>
-    </Card>
+      <Grid container spacing={2}>
+        <Grid item xs={5}>
+          <Typography variant="h5" gutterBottom className={classes.volNumber}>
+            {`${volData.fy2020}M`}
+          </Typography>
+        </Grid>
+        <Grid item xs={1}>
+          <KeyboardArrowDownIcon />
+        </Grid>
+
+        <Grid item xs={2}>
+          <Typography variant="h5" gutterBottom className={classes.volNumber}>
+            -23%
+          </Typography>
+        </Grid>
+      </Grid>
+    </div>
   );
 };
 

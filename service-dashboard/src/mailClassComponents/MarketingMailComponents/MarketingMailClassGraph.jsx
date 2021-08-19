@@ -102,7 +102,7 @@ export const MarketingMailClassGraph = (props) => {
 
     svg
       .append("g")
-      .call(d3.axisLeft(yScaleRev).tickSize(-svgWidth))
+      .call(d3.axisLeft(yScaleRev).tickSize(-svgWidth).ticks(5))
       .attr("transform", `translate(${marginLeft},${marginTop})`)
       .style("opacity", 0.5)
       .attr("class", "graphicElement axisTicks");
@@ -119,6 +119,7 @@ export const MarketingMailClassGraph = (props) => {
       .attr("height", (d) => yScale(d.pctOnTime))
       .attr("width", barWidth)
       .attr("fill", "steelblue")
+      //   .attr("rx", 4)
       .attr("class", "graphicElement bar2019");
 
     svg
@@ -131,6 +132,7 @@ export const MarketingMailClassGraph = (props) => {
       .attr("height", (d) => yScale(d.pctOnTime))
       .attr("width", barWidth)
       .attr("fill", "blue")
+      //   .attr("rx", 4)
       .attr("class", "graphicElement bar2020");
 
     svg
