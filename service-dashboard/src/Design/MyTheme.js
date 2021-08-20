@@ -13,10 +13,22 @@ const useStyles = makeStyles({
   },
 });
 
+export const colorPalleteMatt = {
+  primaryColor: "#2CC6EB",
+  secondaryColor: "#225CF6",
+  highlightColor: "#22F6AC",
+  lightGrey: "#e6e8e6",
+};
+
+export const { primaryColor, secondaryColor, highlightColor, lightGrey } =
+  colorPalleteMatt;
+
+export const textNodeFont = "'Roboto', sans-serif";
+
 const myTheme = createTheme({
   palette: {
     primary: {
-      main: orange[700],
+      main: primaryColor,
     },
   },
 });

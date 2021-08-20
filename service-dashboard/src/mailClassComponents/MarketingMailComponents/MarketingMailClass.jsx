@@ -7,7 +7,7 @@ import annualData from "../../Data/annualData.json";
 
 import MarketingMailClassGraph from "./MarketingMailClassGraph";
 import ProductCountTable from "../ProductCountTable";
-import VolumeChange from "../VolumeChange";
+import VolumeChange from "../../DashComponents/VolumeChange";
 
 const useStyles = makeStyles((theme) => ({
   root: {

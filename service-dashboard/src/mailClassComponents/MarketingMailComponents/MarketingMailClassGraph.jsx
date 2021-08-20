@@ -1,12 +1,26 @@
 import * as d3 from "d3";
+import { color } from "d3";
 import { useEffect, useState } from "react";
-import GraphKey from "../GraphKey";
+import GraphKey from "../../DashComponents/GraphKey";
+import {
+  primaryColor,
+  secondaryColor,
+  highlightColor,
+  textNodeFont,
+  lightGrey,
+} from "../../Design/MyTheme";
+
+import {
+  Tooltip,
+  toolTipMotion,
+  hideTooltip,
+} from "../../DashComponents/Tooltip";
 
 export const MarketingMailClassGraph = (props) => {
   const { propData } = props;
-  //   console.log("mm data", propData);
 
   const [data, setData] = useState({});
+  const [toolTipData, setToolTipData] = useState("");
 
   useEffect(() => {
     setData(propData);
@@ -71,6 +85,9 @@ export const MarketingMailClassGraph = (props) => {
     const data2019 = dataProducts.filter((row) => row.fy == 2019);
 
     const interBarMargin = getInterBarMargin(data2020);
+
+    const tooltip = d3.select("#graphTooltip");
+
     svg
       .selectAll(".nameBoxes")
       .data(data2020)
@@ -83,11 +100,12 @@ export const MarketingMailClassGraph = (props) => {
       .attr("fill", "white")
       .attr("class", "graphicElement nameBox")
       .on("mouseover", function () {
-        d3.select(this).attr("fill", "grey");
+        d3.select(this).attr("fill", lightGrey);
       })
       .on("mouseout", function () {
         d3.select(this).attr("fill", "white");
-      });
+      })
+      .attr("id", (d, i) => `nameBox_${i}`);
 
     svg
       .selectAll(".productNameText")
@@ -98,16 +116,26 @@ export const MarketingMailClassGraph = (props) => {
       .attr("y", topStart + 15)
       .text((d) => d.productAbbrev)
       .attr("text-anchor", "middle")
-      .attr("class", "graphicElement nameBox");
+      .attr("class", "graphicElement nameBox")
+      .attr("font-family", textNodeFont)
+      .attr("id", (d, i) => `${i}`)
+      .on("mouseover", function () {
+        const idCount = this.id;
+        const parentBox = `nameBox_${idCount}`;
+        d3.select(`#${parentBox}`).attr("fill", lightGrey);
+      });
 
     svg
       .append("g")
       .call(d3.axisLeft(yScaleRev).tickSize(-svgWidth).ticks(5))
       .attr("transform", `translate(${marginLeft},${marginTop})`)
-      .style("opacity", 0.5)
       .attr("class", "graphicElement axisTicks");
-    //   .tickSize(300)
-    //   .tickFormat("");
+
+    d3.select(".domain").remove();
+    d3.selectAll(".axisTicks").selectAll("text").style("opacity", 1);
+    d3.selectAll("line").style("opacity", 0.3);
+
+    d3.selectAll(".targetLines").style("opacity", 1);
 
     svg
       .selectAll(".bar2019")
@@ -118,22 +146,45 @@ export const MarketingMailClassGraph = (props) => {
       .attr("y", (d) => topStart - yScale(d.pctOnTime))
       .attr("height", (d) => yScale(d.pctOnTime))
       .attr("width", barWidth)
-      .attr("fill", "steelblue")
-      //   .attr("rx", 4)
-      .attr("class", "graphicElement bar2019");
+      .attr("fill", primaryColor)
+      .attr("class", "graphicElement bar2019")
+      .attr("id", (d) => `${d.pctOnTime}% on Time`)
+      .on("mouseover", function (event) {
+        const currentBarId = d3.select(this)._groups[0][0].id;
+
+        // d3.mouse(this);
+
+        toolTipMotion(event, currentBarId);
+
+        setToolTipData(currentBarId);
+      })
+      .on("mousemove", function (event) {
+        toolTipMotion(event);
+      })
+      .on("mouseout", function (event) {
+        hideTooltip(event);
+      });
 
     svg
       .selectAll(".bar2020")
       .data(data2020)
       .enter()
       .append("rect")
-      .attr("x", (d, i) => i * interBarMargin + barWidth + barMarginLeft)
+      .attr("x", (d, i) => i * interBarMargin + barWidth + barMarginLeft - 7)
       .attr("y", (d) => topStart - yScale(d.pctOnTime))
       .attr("height", (d) => yScale(d.pctOnTime))
       .attr("width", barWidth)
-      .attr("fill", "blue")
-      //   .attr("rx", 4)
+      .attr("fill", secondaryColor)
       .attr("class", "graphicElement bar2020");
+    // .on("mouseover", function (event) {
+    //   toolTipMotion(event);
+    // })
+    // .on("mousemove", function (event) {
+    //   toolTipMotion(event);
+    // })
+    // .on("mouseout", function (event) {
+    //   hideTooltip(event);
+    // });
 
     svg
       .selectAll(".targetLines")
@@ -144,7 +195,7 @@ export const MarketingMailClassGraph = (props) => {
       .attr("y1", (d) => topStart - yScale(d.target))
       .attr("x2", (d, i) => i * interBarMargin + barWidth * 2 + barMarginLeft)
       .attr("y2", (d) => topStart - yScale(d.target))
-      .style("stroke", "lightgreen")
+      .style("stroke", highlightColor)
       .style("stroke-width", 2)
       .attr("class", "graphicElement targetLines");
 
@@ -154,7 +205,8 @@ export const MarketingMailClassGraph = (props) => {
       .attr("x", 190)
       .attr("y", 20)
       .style("text-anchor", "middle")
-      .attr("transform", "translate(-5,315) rotate(270)");
+      .attr("transform", "translate(-5,315) rotate(270)")
+      .attr("font-family", textNodeFont);
   }
 
   function removeBars() {
@@ -163,7 +215,7 @@ export const MarketingMailClassGraph = (props) => {
 
   return (
     <div>
-      <h3>Marketing Mail Products</h3>
+      <h3 fontFamily={textNodeFont}>Marketing Mail Products</h3>
       <svg
         shapeRendering="crispEdges"
         id="mmClassSvg"
@@ -171,6 +223,7 @@ export const MarketingMailClassGraph = (props) => {
         width={850}
       ></svg>
       <GraphKey />
+      <Tooltip toolTipData={toolTipData} />
     </div>
   );
 };
