@@ -9,15 +9,30 @@ const useStyles = makeStyles({
     width: "100%",
     maxWidth: 500,
   },
+  outterContainer: {
+    backgroundColor: "#e6e8e6",
+  },
 
   titleText: {
     fontSize: 20,
-    marginLeft: "-150px",
+    marginLeft: "-75px",
     color: "black",
+    fontWeight: "bold",
+    marginBottom: "-0.5rem",
+  },
+  volText: {
+    fontSize: 17,
+    marginBottom: "2%",
   },
   volNumber: {
     fontSize: 18,
     marginLeft: "-75px",
+    fontWeight: "bold",
+  },
+  changeIcon: {
+    marginTop: "3%",
+    marginLeft: "-2px",
+    marginRight: "1px",
   },
 });
 
@@ -25,8 +40,6 @@ export const VolumeChange = (props) => {
   const { volData } = props;
 
   const classes = useStyles();
-
-  //   console.log(volData);
 
   const { fy2020, fy2019 } = volData;
   const volChangePct = (fy2020 - fy2019) / fy2019;
@@ -36,25 +49,17 @@ export const VolumeChange = (props) => {
   return (
     <div>
       <Typography variant="h5" gutterBottom className={classes.titleText}>
-        Total Volume
+        Total Volume {`${volData.fy2020}M`}
       </Typography>
 
-      <Grid container spacing={2}>
-        <Grid item xs={5}>
-          <Typography variant="h5" gutterBottom className={classes.volNumber}>
-            {`${volData.fy2020}M`}
-          </Typography>
-        </Grid>
-        <Grid item xs={1}>
-          <KeyboardArrowDownIcon />
-        </Grid>
-
-        <Grid item xs={2}>
-          <Typography variant="h5" gutterBottom className={classes.volNumber}>
-            -23%
-          </Typography>
-        </Grid>
-      </Grid>
+      <Typography variant="h5" gutterBottom className={classes.volText}>
+        Annual change
+        <KeyboardArrowDownIcon
+          className={classes.changeIcon}
+          fontSize="small"
+        />
+        23%
+      </Typography>
     </div>
   );
 };

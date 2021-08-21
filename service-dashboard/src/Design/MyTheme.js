@@ -18,10 +18,18 @@ export const colorPalleteMatt = {
   secondaryColor: "#225CF6",
   highlightColor: "#22F6AC",
   lightGrey: "#e6e8e6",
+  alternateHighlight: "#1ED4C7",
 };
 
-export const { primaryColor, secondaryColor, highlightColor, lightGrey } =
-  colorPalleteMatt;
+export const {
+  primaryColor,
+  secondaryColor,
+  highlightColor,
+  lightGrey,
+  alternateHighlight,
+} = colorPalleteMatt;
+
+export const lightGreyAgain = "#e6e8e6";
 
 export const textNodeFont = "'Roboto', sans-serif";
 

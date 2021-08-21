@@ -16,6 +16,8 @@ import {
   hideTooltip,
 } from "../../DashComponents/Tooltip";
 
+// import Tooltip from "@material-ui/core/Tooltip";
+
 export const MarketingMailClassGraph = (props) => {
   const { propData } = props;
 
@@ -148,22 +150,22 @@ export const MarketingMailClassGraph = (props) => {
       .attr("width", barWidth)
       .attr("fill", primaryColor)
       .attr("class", "graphicElement bar2019")
-      .attr("id", (d) => `${d.pctOnTime}% on Time`)
-      .on("mouseover", function (event) {
-        const currentBarId = d3.select(this)._groups[0][0].id;
+      .attr("id", (d) => `${d.pctOnTime}% on Time`);
+    // .on("mouseover", function (event) {
+    //   const currentBarId = d3.select(this)._groups[0][0].id;
 
-        // d3.mouse(this);
+    //   // d3.mouse(this);
 
-        toolTipMotion(event, currentBarId);
+    //   toolTipMotion(event, currentBarId);
 
-        setToolTipData(currentBarId);
-      })
-      .on("mousemove", function (event) {
-        toolTipMotion(event);
-      })
-      .on("mouseout", function (event) {
-        hideTooltip(event);
-      });
+    //   setToolTipData(currentBarId);
+    // })
+    // .on("mousemove", function (event) {
+    //   toolTipMotion(event);
+    // })
+    // .on("mouseout", function (event) {
+    //   hideTooltip(event);
+    // });
 
     svg
       .selectAll(".bar2020")
@@ -175,10 +177,13 @@ export const MarketingMailClassGraph = (props) => {
       .attr("height", (d) => yScale(d.pctOnTime))
       .attr("width", barWidth)
       .attr("fill", secondaryColor)
-      .attr("class", "graphicElement bar2020");
-    // .on("mouseover", function (event) {
-    //   toolTipMotion(event);
-    // })
+      .attr("class", "graphicElement bar2020")
+      .on("mouseover", function (event) {
+        // const thisBar = d3.select(this)._groups[0][0].id;
+        const thisBar = d3.select(this)._groups[0][0];
+        // const thisBar = d3.select(this);
+        // toolTipMotion(event);
+      });
     // .on("mousemove", function (event) {
     //   toolTipMotion(event);
     // })
@@ -223,7 +228,7 @@ export const MarketingMailClassGraph = (props) => {
         width={850}
       ></svg>
       <GraphKey />
-      <Tooltip toolTipData={toolTipData} />
+      {/* <Tooltip toolTipData={toolTipData} /> */}
     </div>
   );
 };

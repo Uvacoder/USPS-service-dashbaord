@@ -6,15 +6,16 @@ import Typography from "@material-ui/core/Typography";
 import annualData from "../../Data/annualData.json";
 
 import MarketingMailClassGraph from "./MarketingMailClassGraph";
-import ProductCountTable from "../ProductCountTable";
+import ProductCountTableData from "../../DashComponents/ProductCountTable";
 import VolumeChange from "../../DashComponents/VolumeChange";
+import ProductDropdown from "../../DashComponents/ProductDropdown";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
   paper: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(1),
     textAlign: "center",
     color: theme.palette.text.secondary,
     minWidth: 300,
@@ -58,25 +59,24 @@ export const MarketingMail = () => {
 
         <Grid item xs={3}>
           <Grid container direction="column" spacing={3}>
-            <Grid item xs={3}>
-              <Paper className={classes.paper}>
-                <VolumeChange volData={fakeVolData} />
-              </Paper>
-            </Grid>
-
-            <Grid item xs={3}>
+            <Grid item xs={4}>
               <Paper className={classes.paper}>
                 <div>
                   {" "}
-                  <ProductCountTable propData={mmAnnualData} />{" "}
+                  <ProductCountTableData propData={mmAnnualData} />{" "}
                 </div>
+              </Paper>
+            </Grid>
+            <Grid item xs={3}>
+              <Paper className={classes.paper}>
+                <VolumeChange volData={fakeVolData} />
               </Paper>
             </Grid>
           </Grid>
         </Grid>
         <Grid item xs={5}>
           <Paper className={classes.paper}>
-            <div>product dropdown here</div>
+            <ProductDropdown propData={mmAnnualData} />
           </Paper>
         </Grid>
       </Grid>
