@@ -10,6 +10,7 @@ import { MarketingMail } from "./mailClassComponents/MarketingMailComponents/Mar
 import { SpecialServices } from "./mailClassComponents/SpecialServices";
 import { PackageServices } from "./mailClassComponents/PackageServices";
 import { Periodicals } from "./mailClassComponents/Periodicals";
+import { ProductPage } from "./mailClassComponents/ProductPage";
 
 import { Route, Switch, BrowserRouter } from "react-router-dom";
 import Drawer from "./Drawer";
@@ -52,6 +53,11 @@ function App() {
                 exact
                 path="/special-services"
                 render={(props) => <PackageServices {...props} />}
+              />
+              <Route
+                exact
+                path="/product"
+                render={(props) => <ProductPage {...props} />}
               />
             </Switch>
           </div>

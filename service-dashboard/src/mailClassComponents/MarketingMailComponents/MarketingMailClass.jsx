@@ -3,16 +3,24 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 
+import { useState } from "react";
+
 import annualData from "../../Data/annualData.json";
 
 import MarketingMailClassGraph from "./MarketingMailClassGraph";
 import ProductCountTableData from "../../DashComponents/ProductCountTable";
 import VolumeChange from "../../DashComponents/VolumeChange";
 import ProductDropdown from "../../DashComponents/ProductDropdown";
+import ProductPage from "../ProductPage";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+  },
+  paperDropdown: {
+    minWidth: 850,
+    padding: theme.spacing(1),
+    marginTop: "5%",
   },
   paper: {
     padding: theme.spacing(1),
@@ -28,8 +36,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const MarketingMail = () => {
+export const MarketingMail = (props) => {
   const classes = useStyles();
+
+  const [selectedProductId, setSelectedProductId] = useState(0);
+
+  function changeProductSelected(e) {
+    setSelectedProductId(e.target.id);
+    // console.log(selectedProductId);
+  }
 
   const mmAnnualData = annualData.filter(
     (row) => row.class === "Marketing Mail"
@@ -74,12 +89,17 @@ export const MarketingMail = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={5}>
-          <Paper className={classes.paper}>
-            <ProductDropdown propData={mmAnnualData} />
-          </Paper>
-        </Grid>
+        {/* <Grid item xs={6}> */}
+        <Paper className={classes.paperDropdown}>
+          <ProductDropdown
+            propData={mmAnnualData}
+            selectedProductId={selectedProductId}
+            changeProductSelected={changeProductSelected}
+          />
+        </Paper>
       </Grid>
+
+      <ProductPage selectedProductId={selectedProductId} />
     </div>
   );
 };

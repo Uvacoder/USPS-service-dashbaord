@@ -1,37 +1,83 @@
 import Select from "@material-ui/core/Select";
+import FormControl from "@material-ui/core/FormControl";
+
 import MenuItem from "@material-ui/core/MenuItem";
-import { Typography } from "@material-ui/core";
-import { Switch, Route, Link } from "react-router-dom";
-import ProductPage from "../mailClassComponents/ProductPage";
+
+import { makeStyles } from "@material-ui/core/styles";
+import { Typography, Grid } from "@material-ui/core";
+
+const useStyles = makeStyles((theme) => ({
+  selectDropdown: {
+    marginRight: "5%",
+
+    width: "350px",
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+  dropdownLabel: {
+    // marginLeft: "-20%",
+    color: "black",
+  },
+}));
 
 export const ProductDropdown = (props) => {
-  const { propData } = props;
+  const { propData, selectedProductId, changeProductSelected } = props;
 
-  console.log(propData);
+  const classes = useStyles();
 
-  const productList = propData.filter((row) => row.fy === 2020);
+  let productList = propData
+    .filter((row) => row.fy === 2020)
+    .filter((row) => !row.product.includes("Mixed"));
 
-  console.log(productList);
+  productList.push({
+    class: "Marketing Mail",
+    fy: 2019,
+    product: "none",
+    productId: 0,
+  });
 
-  const menuItems = productList.map((el) => (
-    <Link to={`product/${el.productId}`}>
-      {" "}
-      <MenuItem value={el.product}>{el.product}</MenuItem>{" "}
-    </Link>
+  // console.log("productList", productList);
+
+  const menuItems = productList.map((el, ind) => (
+    <MenuItem
+      key={`dropdown${ind}`}
+      id={el.productId}
+      onClick={changeProductSelected}
+      value={el.product}
+    >
+      {el.product}
+    </MenuItem>
   ));
 
   return (
-    <div>
-      <Typography>
-        View Prouct Level Data <Select>{menuItems}</Select>
-      </Typography>
+    <>
+      <FormControl>
+        <Grid container>
+          <Grid item xs={6}>
+            <Typography className={classes.dropdownLabel}>
+              View Product-Level Data:
+            </Typography>
+          </Grid>
 
-      <Switch>
-        <Route exact path="/product/:id">
-          <ProductPage />
-        </Route>
-      </Switch>
-    </div>
+          <Grid item xs={5}>
+            <Select
+              // value={
+              //   productList.filter((row) => row.productId === selectedProductId)
+              //     .product
+              // }
+              className={classes.selectDropdown}
+            >
+              {menuItems}
+            </Select>
+          </Grid>
+        </Grid>
+      </FormControl>
+    </>
   );
 };
 
