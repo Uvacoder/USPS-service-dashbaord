@@ -11,6 +11,19 @@ import {
 } from "../../Design/MyTheme";
 
 import {
+  marginBottom,
+  graphHeight,
+  graphWidth,
+  barWidth,
+  marginLeft,
+  marginRight,
+  barMarginLeft,
+  marginTop,
+  yScale,
+  yScaleRev,
+} from "../../Design/graphDimensions";
+
+import {
   Tooltip,
   toolTipMotion,
   hideTooltip,
@@ -33,36 +46,36 @@ export const MarketingMailClassGraph = (props) => {
     barFunctions();
   }, [data, propData]);
 
-  const classGraphDims = {
-    graphHeight: 300,
-    graphWidth: 500,
-    barWidth: 20,
-    marginLeft: 40,
-    marginRight: 20,
-    marginBottom: 30,
-    // barMarginLeft: this.marginLeft + 15,
-    marginTop: 20,
-    barMarginLeft: 40 + 15,
-  };
+  // const classGraphDims = {
+  //   graphHeight: 300,
+  //   graphWidth: 500,
+  //   barWidth: 20,
+  //   marginLeft: 40,
+  //   marginRight: 20,
+  //   marginBottom: 30,
+  //   // barMarginLeft: this.marginLeft + 15,
+  //   marginTop: 20,
+  //   barMarginLeft: 40 + 15,
+  // };
 
-  const {
-    marginBottom,
-    graphHeight,
-    graphWidth,
-    barWidth,
-    marginLeft,
-    marginRight,
-    barMarginLeft,
-    marginTop,
-  } = classGraphDims;
+  // const {
+  //   marginBottom,
+  //   graphHeight,
+  //   graphWidth,
+  //   barWidth,
+  //   marginLeft,
+  //   marginRight,
+  //   barMarginLeft,
+  //   marginTop,
+  // } = classGraphDims;
 
   const topStart = graphHeight - marginBottom;
 
   const svgWidth = 850;
   const svgHeigh = 400;
 
-  const yScale = d3.scaleLinear().domain([0, 100]).range([0, 250]);
-  const yScaleRev = d3.scaleLinear().domain([0, 100]).range([250, 0]);
+  // const yScale = d3.scaleLinear().domain([0, 100]).range([0, 250]);
+  // const yScaleRev = d3.scaleLinear().domain([0, 100]).range([250, 0]);
 
   const svg = d3.select("#mmClassSvg");
 

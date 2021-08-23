@@ -10,53 +10,51 @@ import {
   lightGrey,
 } from "../Design/MyTheme";
 
+import {
+  marginBottom,
+  graphHeight,
+  graphWidth,
+  barWidth,
+  marginLeft,
+  marginRight,
+  barMarginLeft,
+  marginTop,
+  yScale,
+  yScaleRev,
+} from "../Design/graphDimensions";
+
+console.log(marginTop);
+
 export const MarketingMailClassGraph = (props) => {
   const { propData } = props;
 
+  console.log("graphData", propData);
+
   const [data, setData] = useState({});
-  const [toolTipData, setToolTipData] = useState("");
+  //   const [toolTipData, setToolTipData] = useState("");
 
   useEffect(() => {
     setData(propData);
-    barFunctions();
+    // barFunctions();
+
+    d3.selectAll(".nonBarQuarter").remove();
+    drawBars();
   }, []);
 
   useEffect(() => {
-    barFunctions();
+    // barFunctions();
+
+    d3.selectAll(".nonBarQuarter").remove();
+    drawBars();
+    transitionBars();
   }, [data, propData]);
-
-  const classGraphDims = {
-    graphHeight: 300,
-    graphWidth: 500,
-    barWidth: 20,
-    marginLeft: 40,
-    marginRight: 20,
-    marginBottom: 30,
-    // barMarginLeft: this.marginLeft + 15,
-    marginTop: 20,
-    barMarginLeft: 40 + 15,
-  };
-
-  const {
-    marginBottom,
-    graphHeight,
-    graphWidth,
-    barWidth,
-    marginLeft,
-    marginRight,
-    barMarginLeft,
-    marginTop,
-  } = classGraphDims;
 
   const topStart = graphHeight - marginBottom;
 
   const svgWidth = 850;
   const svgHeigh = 400;
 
-  const yScale = d3.scaleLinear().domain([0, 100]).range([0, 250]);
-  const yScaleRev = d3.scaleLinear().domain([0, 100]).range([250, 0]);
-
-  const svg = d3.select("#mmClassSvg");
+  const svg = d3.select("#productSvg");
 
   function barFunctions() {
     removeBars();
@@ -73,115 +71,96 @@ export const MarketingMailClassGraph = (props) => {
   }
 
   function drawBars() {
-    const dataProducts = data.filter((row) => row.productAbbrev !== "missing");
+    d3.selectAll(".nonBarQuarter").remove();
 
-    const data2020 = dataProducts.filter((row) => row.fy == 2020);
-    const data2019 = dataProducts.filter((row) => row.fy == 2019);
+    drawNonBarItems();
+    const data2020 = propData.filter((row) => row.fy == 2020);
+    const data2019 = propData.filter((row) => row.fy == 2019);
 
     const interBarMargin = getInterBarMargin(data2020);
 
-    const tooltip = d3.select("#graphTooltip");
+    const quarters = ["Q1", "Q2", "Q3", "Q4 "];
 
     svg
-      .selectAll(".nameBoxes")
-      .data(data2020)
-      .enter()
-      .append("rect")
-      .attr("x", (d, i) => i * interBarMargin + 25)
-      .attr("y", (d) => topStart)
-      .attr("height", 50)
-      .attr("width", 120)
-      .attr("fill", "white")
-      .attr("class", "graphicElement nameBox")
-      .on("mouseover", function () {
-        d3.select(this).attr("fill", lightGrey);
-      })
-      .on("mouseout", function () {
-        d3.select(this).attr("fill", "white");
-      })
-      .attr("id", (d, i) => `nameBox_${i}`);
-
-    svg
-      .selectAll(".productNameText")
-      .data(data2020)
-      .enter()
-      .append("text")
-      .attr("x", (d, i) => i * interBarMargin + 75)
-      .attr("y", topStart + 15)
-      .text((d) => d.productAbbrev)
-      .attr("text-anchor", "middle")
-      .attr("class", "graphicElement nameBox")
-      .attr("font-family", textNodeFont)
-      .attr("id", (d, i) => `${i}`)
-      .on("mouseover", function () {
-        const idCount = this.id;
-        const parentBox = `nameBox_${idCount}`;
-        d3.select(`#${parentBox}`).attr("fill", lightGrey);
-      });
-
-    svg
-      .append("g")
-      .call(d3.axisLeft(yScaleRev).tickSize(-svgWidth).ticks(5))
-      .attr("transform", `translate(${marginLeft},${marginTop})`)
-      .attr("class", "graphicElement axisTicks");
-
-    d3.select(".domain").remove();
-    d3.selectAll(".axisTicks").selectAll("text").style("opacity", 1);
-    d3.selectAll("line").style("opacity", 0.3);
-
-    d3.selectAll(".targetLines").style("opacity", 1);
-
-    svg
-      .selectAll(".bar2019")
+      .selectAll(".bar2019Quarter")
       .data(data2019)
       .enter()
       .append("rect")
       .attr("x", (d, i) => i * interBarMargin + barMarginLeft)
       .attr("y", (d) => topStart - yScale(d.pctOnTime))
-      .attr("height", (d) => yScale(d.pctOnTime))
       .attr("width", barWidth)
       .attr("fill", primaryColor)
-      .attr("class", "graphicElement bar2019")
-      .attr("id", (d) => `${d.pctOnTime}% on Time`);
-    // .on("mouseover", function (event) {
-    //   const currentBarId = d3.select(this)._groups[0][0].id;
-
-    //   // d3.mouse(this);
-
-    //   toolTipMotion(event, currentBarId);
-
-    //   setToolTipData(currentBarId);
-    // })
-    // .on("mousemove", function (event) {
-    //   toolTipMotion(event);
-    // })
-    // .on("mouseout", function (event) {
-    //   hideTooltip(event);
-    // });
+      .attr("class", "graphicElementQuarter bar2019Quarter")
+      .attr("id", (d) => `${d.pctOnTime}% on Time`)
+      .attr("height", (d) => yScale(d.pctOnTime));
 
     svg
-      .selectAll(".bar2020")
+      .selectAll(".bar2020Quarter")
       .data(data2020)
       .enter()
       .append("rect")
       .attr("x", (d, i) => i * interBarMargin + barWidth + barMarginLeft - 7)
       .attr("y", (d) => topStart - yScale(d.pctOnTime))
-      .attr("height", (d) => yScale(d.pctOnTime))
+      //   .attr("height", (d) => yScale(d.pctOnTime))
       .attr("width", barWidth)
       .attr("fill", secondaryColor)
-      .attr("class", "graphicElement bar2020")
-      .on("mouseover", function (event) {
-        // const thisBar = d3.select(this)._groups[0][0].id;
-        const thisBar = d3.select(this)._groups[0][0];
-        // const thisBar = d3.select(this);
-        // toolTipMotion(event);
-      });
-    // .on("mousemove", function (event) {
-    //   toolTipMotion(event);
-    // })
-    // .on("mouseout", function (event) {
-    //   hideTooltip(event);
-    // });
+      .attr("class", "graphicElementQuarter bar2020Quarter")
+      .attr("height", (d) => yScale(d.pctOnTime));
+  }
+
+  function transitionBars() {
+    const data2020 = propData.filter((row) => row.fy == 2020);
+    const data2019 = propData.filter((row) => row.fy == 2019);
+
+    const quarters = ["Q1", "Q2", "Q3", "Q4 "];
+    const interBarMargin = getInterBarMargin(data2020);
+
+    d3.selectAll(".bar2020Quarter")
+      .data(data2020)
+      .transition()
+      .duration(500)
+      .attr("height", (d) => yScale(d.pctOnTime))
+      .attr("y", (d) => topStart - yScale(d.pctOnTime));
+
+    d3.selectAll(".bar2019Quarter")
+      .data(data2019)
+      .transition()
+      .duration(500)
+      .attr("height", (d) => yScale(d.pctOnTime))
+      .attr("y", (d) => topStart - yScale(d.pctOnTime));
+
+    d3.selectAll(".nonBarQuarter").remove();
+
+    drawNonBarItems();
+  }
+
+  function removeBars() {
+    // console.log("data2020 in function", data2020);
+    // d3.selectAll(".graphicElementQuarter").remove();
+  }
+
+  function drawNonBarItems() {
+    const data2020 = propData.filter((row) => row.fy == 2020);
+    const data2019 = propData.filter((row) => row.fy == 2019);
+
+    d3.selectAll(".nonBarQuarter").remove();
+
+    const quarters = ["Q1", "Q2", "Q3", "Q4 "];
+    const interBarMargin = getInterBarMargin(data2020);
+
+    d3.selectAll(".bar2020Quarter")
+      .data(data2020)
+      .transition()
+      .duration(500)
+      .attr("height", (d) => yScale(d.pctOnTime))
+      .attr("y", (d) => topStart - yScale(d.pctOnTime));
+
+    d3.selectAll(".bar2019Quarter")
+      .data(data2019)
+      .transition()
+      .duration(500)
+      .attr("height", (d) => yScale(d.pctOnTime))
+      .attr("y", (d) => topStart - yScale(d.pctOnTime));
 
     svg
       .selectAll(".targetLines")
@@ -194,7 +173,7 @@ export const MarketingMailClassGraph = (props) => {
       .attr("y2", (d) => topStart - yScale(d.target))
       .style("stroke", highlightColor)
       .style("stroke-width", 2)
-      .attr("class", "graphicElement targetLines");
+      .attr("class", "nonBarQuarter  graphicElementQuarter targetLines");
 
     svg
       .append("text")
@@ -203,19 +182,39 @@ export const MarketingMailClassGraph = (props) => {
       .attr("y", 20)
       .style("text-anchor", "middle")
       .attr("transform", "translate(-5,315) rotate(270)")
-      .attr("font-family", textNodeFont);
-  }
+      .attr("font-family", textNodeFont)
+      .attr("class", "nonBarQuarter graphicElementQuarter");
 
-  function removeBars() {
-    d3.selectAll(".graphicElement");
-  }
+    svg
+      .selectAll(".quarterText")
+      .data(quarters)
+      .enter()
+      .append("text")
+      .attr("x", (d, i) => i * interBarMargin + 75)
+      .attr("y", topStart + 15)
+      .text((d) => d)
+      .attr("text-anchor", "middle")
+      .attr("class", "nonBarQuarter graphicElementQuarter nameBox")
+      .attr("font-family", textNodeFont)
+      .attr("id", (d, i) => `${i}`);
 
+    svg
+      .append("g")
+      .call(d3.axisLeft(yScaleRev).tickSize(-svgWidth).ticks(5))
+      .attr("transform", `translate(${marginLeft},${marginTop})`)
+      .attr("class", " nonBarQuarter graphicElementQuarter axisTicks");
+
+    d3.select(".domain").remove();
+    d3.selectAll(".axisTicks").selectAll("text").style("opacity", 1);
+    d3.selectAll("line").style("opacity", 0.3);
+    d3.selectAll(".targetLines").style("opacity", 1);
+  }
   return (
     <div>
-      <h3 fontFamily={textNodeFont}>Marketing Mail Products</h3>
+      <h3 fontFamily={textNodeFont}>Product-Level Quarterly Data</h3>
       <svg
         shapeRendering="crispEdges"
-        id="mmClassSvg"
+        id="productSvg"
         height={300}
         width={850}
       ></svg>
