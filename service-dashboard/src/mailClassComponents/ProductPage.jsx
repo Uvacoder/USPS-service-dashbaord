@@ -1,7 +1,8 @@
 import data from "../Data/quarterlyData.json";
 
 import ProductGraph from "../DashComponents/ProductGraph";
-import { Grid, Paper } from "@material-ui/core";
+import QuarterlyVolume from "../DashComponents/QuarterlyVolume";
+import { Grid, Paper, Divider } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 export const ProductPage = (props) => {
@@ -32,10 +33,11 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "black",
   },
   quarterlyContainer: {
-    // marginTop: "2%",
+    minWidth: 315,
   },
-  fullProductContainer: {
-    // marginTop: "2%",
+  fullProductContainer: {},
+  productGraphContainer: {
+    minwidth: 700,
   },
 }));
 
@@ -45,20 +47,29 @@ const ProductPageFull = (props) => {
   const { productId, productData } = props;
 
   return (
-    <div style={{ marginTop: "2%" }}>
-      <Grid container spacing={3}>
-        <Grid item xs={8}>
-          <Paper>
-            <p>{productData[0].product}</p>
-            <ProductGraph propData={productData} />
-          </Paper>
-        </Grid>
+    <>
+      <div style={{ marginTop: "2%", marginBottom: "20%" }}>
+        <Divider />
+        <div style={{ marginTop: "2%" }}>
+          <Grid container spacing={3}>
+            <Grid item xs={8}>
+              <div style={{ minWidth: 900 }}>
+                <Paper className={classes.productGraphContainer}>
+                  <ProductGraph propData={productData} />
+                </Paper>
+              </div>
+            </Grid>
 
-        <Grid item xs={3}>
-          <Paper>quarterly graph component</Paper>
-        </Grid>
-      </Grid>
-    </div>
+            <Grid item lg={3} md={12}>
+              {" "}
+              <Paper className={classes.quarterlyContainer}>
+                <QuarterlyVolume propData={productData} />
+              </Paper>
+            </Grid>
+          </Grid>
+        </div>
+      </div>
+    </>
   );
 };
 

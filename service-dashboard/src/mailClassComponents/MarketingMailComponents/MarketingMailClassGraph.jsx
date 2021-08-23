@@ -46,42 +46,17 @@ export const MarketingMailClassGraph = (props) => {
     barFunctions();
   }, [data, propData]);
 
-  // const classGraphDims = {
-  //   graphHeight: 300,
-  //   graphWidth: 500,
-  //   barWidth: 20,
-  //   marginLeft: 40,
-  //   marginRight: 20,
-  //   marginBottom: 30,
-  //   // barMarginLeft: this.marginLeft + 15,
-  //   marginTop: 20,
-  //   barMarginLeft: 40 + 15,
-  // };
-
-  // const {
-  //   marginBottom,
-  //   graphHeight,
-  //   graphWidth,
-  //   barWidth,
-  //   marginLeft,
-  //   marginRight,
-  //   barMarginLeft,
-  //   marginTop,
-  // } = classGraphDims;
-
   const topStart = graphHeight - marginBottom;
 
   const svgWidth = 850;
   const svgHeigh = 400;
-
-  // const yScale = d3.scaleLinear().domain([0, 100]).range([0, 250]);
-  // const yScaleRev = d3.scaleLinear().domain([0, 100]).range([250, 0]);
 
   const svg = d3.select("#mmClassSvg");
 
   function barFunctions() {
     removeBars();
     if (data.length > 1) {
+      removeBars();
       drawBars();
     }
   }
@@ -104,25 +79,6 @@ export const MarketingMailClassGraph = (props) => {
     const tooltip = d3.select("#graphTooltip");
 
     svg
-      .selectAll(".nameBoxes")
-      .data(data2020)
-      .enter()
-      .append("rect")
-      .attr("x", (d, i) => i * interBarMargin + 25)
-      .attr("y", (d) => topStart)
-      .attr("height", 50)
-      .attr("width", 120)
-      .attr("fill", "white")
-      .attr("class", "graphicElement nameBox")
-      .on("mouseover", function () {
-        d3.select(this).attr("fill", lightGrey);
-      })
-      .on("mouseout", function () {
-        d3.select(this).attr("fill", "white");
-      })
-      .attr("id", (d, i) => `nameBox_${i}`);
-
-    svg
       .selectAll(".productNameText")
       .data(data2020)
       .enter()
@@ -131,7 +87,7 @@ export const MarketingMailClassGraph = (props) => {
       .attr("y", topStart + 15)
       .text((d) => d.productAbbrev)
       .attr("text-anchor", "middle")
-      .attr("class", "graphicElement nameBox")
+      .attr("class", "graphicElement nameBox nonBar")
       .attr("font-family", textNodeFont)
       .attr("id", (d, i) => `${i}`)
       .on("mouseover", function () {
@@ -144,7 +100,7 @@ export const MarketingMailClassGraph = (props) => {
       .append("g")
       .call(d3.axisLeft(yScaleRev).tickSize(-svgWidth).ticks(5))
       .attr("transform", `translate(${marginLeft},${marginTop})`)
-      .attr("class", "graphicElement axisTicks");
+      .attr("class", "graphicElement axisTicks nonBar");
 
     d3.select(".domain").remove();
     d3.selectAll(".axisTicks").selectAll("text").style("opacity", 1);
@@ -215,7 +171,7 @@ export const MarketingMailClassGraph = (props) => {
       .attr("y2", (d) => topStart - yScale(d.target))
       .style("stroke", highlightColor)
       .style("stroke-width", 2)
-      .attr("class", "graphicElement targetLines");
+      .attr("class", "graphicElement targetLines nonBar");
 
     svg
       .append("text")
@@ -224,11 +180,12 @@ export const MarketingMailClassGraph = (props) => {
       .attr("y", 20)
       .style("text-anchor", "middle")
       .attr("transform", "translate(-5,315) rotate(270)")
-      .attr("font-family", textNodeFont);
+      .attr("font-family", textNodeFont)
+      .attr("class", "graphicElement");
   }
 
   function removeBars() {
-    d3.selectAll(".graphicElement");
+    d3.selectAll(".graphicElement").remove();
   }
 
   return (
