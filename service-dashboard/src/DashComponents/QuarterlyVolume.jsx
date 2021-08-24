@@ -6,6 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles({
   headerText: {
     color: "white",
+    marginTop: "-1%",
   },
 });
 
@@ -36,7 +37,7 @@ export const QuarterlyVolume = (props) => {
   const currentProductName = data[0].product;
 
   const margin = { top: 10, right: 5, bottom: 10, left: 20 };
-  const svgHeight = 250 - margin.top - margin.bottom;
+  const svgHeight = 200 - margin.top - margin.bottom;
   const svgWdight = 350 - margin.right - margin.left;
   const interDotX = 95;
 
@@ -238,8 +239,8 @@ export const QuarterlyVolume = (props) => {
   }
 
   return (
-    <div style={{ backgroundColor: "#225CF6" }}>
-      <div>
+    <div style={{ backgroundColor: "#225CF6", paddingTop: "1%" }}>
+      <div style={{ marginTop: "1%" }}>
         <p
           className={classes.headerText}
           style={{ fontSize: "20px", fontWeight: "bold" }}
@@ -250,7 +251,7 @@ export const QuarterlyVolume = (props) => {
       </div>
 
       <div style={{ backgroundColor: "#caf3fa" }}>
-        <svg height={250} width={325} id="qtrVolsvg"></svg>
+        <svg height={200} width={325} id="qtrVolsvg"></svg>
       </div>
     </div>
   );

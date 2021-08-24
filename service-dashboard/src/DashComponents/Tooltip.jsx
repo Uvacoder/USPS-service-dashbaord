@@ -49,7 +49,7 @@ export function hideTooltip(event) {
 }
 
 export const Tooltip = (props) => {
-  const { currentDotX, currentDotY } = props;
+  const { currentDotX, currentDotY, dotId } = props;
 
   useEffect(() => {
     toolTipMotion(currentDotX, currentDotY);

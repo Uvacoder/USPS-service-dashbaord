@@ -63,7 +63,6 @@ export const ProductDropdown = (props) => {
               View Product-Level Data:
             </Typography>
           </Grid>
-
           <Grid item xs={5}>
             <Select
               // value={

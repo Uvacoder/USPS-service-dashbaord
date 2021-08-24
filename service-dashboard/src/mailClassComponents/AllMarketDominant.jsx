@@ -2,7 +2,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
-import MDCompositeContainer from "./allMarketDominantComponents/MDCompositeContainer";
+
+import PieGraph from "../DashComponents/PieGraph";
+
+import topLevelPieData from "../Data/topLevelPieData.json";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,6 +21,13 @@ const useStyles = makeStyles((theme) => ({
 export const AllMarketDominant = (props) => {
   const classes = useStyles();
 
+  const changesData = topLevelPieData.filter(
+    (row) => row.dataSet === "changeCount"
+  );
+  const missesData = topLevelPieData.filter(
+    (row) => row.dataSet === "missedTarget"
+  );
+
   return (
     <div className={classes.root} id="allMdContainer">
       <Grid container spacing={3}>
@@ -31,8 +41,8 @@ export const AllMarketDominant = (props) => {
           <Grid item xs={5}>
             <Paper className={classes.paper}>
               <div id="topFirstClassGraphContainer">
-                outtermost FC container
-                <MDCompositeContainer mailClass={"firstClass"} />
+                missed targets container
+                <PieGraph propData={missesData} />
               </div>
             </Paper>
           </Grid>
@@ -40,8 +50,8 @@ export const AllMarketDominant = (props) => {
           <Grid item xs={5}>
             <Paper className={classes.paper}>
               <div id="topMarketingGraphContainer">
-                outtermost MM container
-                <MDCompositeContainer mailClass={"marketingAndPer"} />
+                changes container
+                <PieGraph propData={changesData} />
               </div>
             </Paper>
           </Grid>
@@ -83,8 +93,6 @@ export const AllMarketDominant = (props) => {
             </Paper>
           </Grid>
         </Grid>
-
-        {/* conatiner end */}
       </Grid>
     </div>
   );

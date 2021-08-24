@@ -31,15 +31,12 @@ export const MarketingMailClassGraph = (props) => {
 
   useEffect(() => {
     setData(propData);
-    // barFunctions();
 
     d3.selectAll(".nonBarQuarter").remove();
     drawBars();
   }, []);
 
   useEffect(() => {
-    // barFunctions();
-
     d3.selectAll(".nonBarQuarter").remove();
 
     drawBars();
@@ -93,7 +90,6 @@ export const MarketingMailClassGraph = (props) => {
       .append("rect")
       .attr("x", (d, i) => i * interBarMargin + barWidth + barMarginLeft - 7)
       .attr("y", (d) => topStart - yScale(d.pctOnTime))
-      //   .attr("height", (d) => yScale(d.pctOnTime))
       .attr("width", barWidth)
       .attr("fill", secondaryColor)
       .attr("class", "graphicElementQuarter bar2020Quarter")
@@ -101,8 +97,6 @@ export const MarketingMailClassGraph = (props) => {
       .transition()
       .duration(600)
       .attr("height", (d) => yScale(d.pctOnTime));
-
-    // drawNonBarItems();
   }
 
   function transitionBars() {
@@ -137,20 +131,6 @@ export const MarketingMailClassGraph = (props) => {
 
     const quarters = ["Q1", "Q2", "Q3", "Q4 "];
     const interBarMargin = getInterBarMargin(data2020);
-
-    // d3.selectAll(".bar2020Quarter")
-    //   .data(data2020)
-    //   .transition()
-    //   .duration(500)
-    //   .attr("height", (d) => yScale(d.pctOnTime))
-    //   .attr("y", (d) => topStart - yScale(d.pctOnTime));
-
-    // d3.selectAll(".bar2019Quarter")
-    //   .data(data2019)
-    //   .transition()
-    //   .duration(500)
-    //   .attr("height", (d) => yScale(d.pctOnTime))
-    //   .attr("y", (d) => topStart - yScale(d.pctOnTime));
 
     svg
       .selectAll(".targetLines")
