@@ -1,5 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 import * as d3 from "d3";
+import { useEffect } from "react";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,30 +29,14 @@ function getWindowDimensions() {
   };
 }
 
-export function toolTipMotion(event, currentBarId) {
+export function toolTipMotion(xPoz, yPoz) {
   const tooltip = d3.select("#graphTooltip");
 
-  let coords = d3.pointer(event);
-
-  const eventX = event.screenX;
-  const eventY = event.screenY;
-
-  const windowX = getWindowDimensions().width;
-  const windowY = getWindowDimensions().height;
-
-  const scaleXValue = 0.19;
-
-  // console.log(eventX, eventY);
-
-  const scaledPoz = windowX * scaleXValue;
-
-  const eventXScaled = coords[0] + scaledPoz;
-
   tooltip
-    .style("left", eventX + "px")
-    .style("top", eventY + "px")
     .transition()
-    .duration(100)
+    .duration(300)
+    .attr("x", xPoz)
+    .attr("y", yPoz)
     .style("opacity", 1);
 
   const tooltipText = d3.select("#tooltipText");
@@ -64,14 +49,33 @@ export function hideTooltip(event) {
 }
 
 export const Tooltip = (props) => {
-  const { toolTipData } = props;
+  const { currentDotX, currentDotY } = props;
+
+  useEffect(() => {
+    toolTipMotion(currentDotX, currentDotY);
+  }, [currentDotX, currentDotY]);
 
   const classes = useStyles();
   return (
-    <div className={classes.div} id="graphTooltip">
-      {/* im the tooltip */}
-      {toolTipData}
-    </div>
+    <>
+      <rect
+        className={classes.div}
+        width={100}
+        height={100}
+        fill="green"
+        id="graphTooltip"
+        style={{ zIndex: 2 }}
+      ></rect>
+      <text
+        id="tooltipText"
+        x={currentDotX}
+        y={currentDotY + 20}
+        stroke="black"
+        style={{ zIndex: 3 }}
+      >
+        this is a tooltip
+      </text>
+    </>
   );
 };
 
