@@ -48,7 +48,8 @@ export const PieGraph = (props) => {
     //Easy colors accessible via a 10-step ordinal scale
     const color = d3.scaleOrdinal(d3.schemeCategory10);
 
-    const colorList = [alternateSecondary, highlightColor, lightGrey];
+    // const colorList = [alternateSecondary, highlightColor, lightGrey];
+    const colorList = [primaryColor, highlightColor, lightGrey];
 
     //Set up groups
     const arcs = svg
