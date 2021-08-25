@@ -1,5 +1,4 @@
 import * as d3 from "d3";
-import { color } from "d3";
 import { useEffect, useState } from "react";
 import GraphKey from "../../DashComponents/GraphKey";
 import {

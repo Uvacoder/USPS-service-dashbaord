@@ -7,6 +7,8 @@ import PieGraph from "../DashComponents/PieGraph";
 
 import topLevelPieData from "../Data/topLevelPieData.json";
 
+import MDCompositeContainer from "./allMarketDominantComponents/MDCompositeContainer";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -49,7 +51,7 @@ export const AllMarketDominant = (props) => {
           <Grid item xs={5}>
             <Paper className={classes.paper}>
               <div id="topMarketingGraphContainer">
-                container for composite graph
+                <MDCompositeContainer />
               </div>
             </Paper>
           </Grid>
@@ -70,9 +72,7 @@ export const AllMarketDominant = (props) => {
           <Divider xs={1} orientation="vertical" />
           <Grid item xs={5}>
             <Paper className={classes.paper}>
-              <div id="topFirstMarketingTableContainer">
-                i'm the mm table container more text more text
-              </div>
+              <div id="topFirstMarketingTableContainer"></div>
             </Paper>
           </Grid>
         </Grid>
