@@ -41,7 +41,6 @@ export const AllMarketDominant = (props) => {
           <Grid item xs={5}>
             <Paper className={classes.paper}>
               <div id="topFirstClassGraphContainer">
-                missed targets container
                 <PieGraph propData={missesData} />
               </div>
             </Paper>
@@ -50,8 +49,7 @@ export const AllMarketDominant = (props) => {
           <Grid item xs={5}>
             <Paper className={classes.paper}>
               <div id="topMarketingGraphContainer">
-                changes container
-                <PieGraph propData={changesData} />
+                container for composite graph
               </div>
             </Paper>
           </Grid>

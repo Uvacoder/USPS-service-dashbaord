@@ -1,5 +1,6 @@
 import * as d3 from "d3";
 import { useState, useEffect } from "react";
+import PieGraphKey from "./PieGraphKey";
 
 import {
   primaryColor,
@@ -26,29 +27,20 @@ export const PieGraph = (props) => {
 
   const svg = d3.select(`#${svgId}`);
 
-  const svgHeight = 500;
-  const svgWidth = 500;
+  const svgHeight = 300;
+  const svgWidth = 300;
 
   function drawPie() {
     const svg = d3.select(`#${svgId}`);
 
-    // console.log("drawingpie");
-    console.log(propData);
-    const w = 300;
-    const h = 300;
-
     const dataset = propData.map((row) => row.value);
 
-    const outerRadius = w / 2;
-    const innerRadius = w / 3;
+    const outerRadius = svgWidth / 2;
+    const innerRadius = svgWidth / 3;
     const arc = d3.arc().innerRadius(innerRadius).outerRadius(outerRadius);
 
     const pie = d3.pie();
 
-    //Easy colors accessible via a 10-step ordinal scale
-    const color = d3.scaleOrdinal(d3.schemeCategory10);
-
-    // const colorList = [alternateSecondary, highlightColor, lightGrey];
     const colorList = [primaryColor, highlightColor, lightGrey];
 
     //Set up groups
@@ -64,7 +56,6 @@ export const PieGraph = (props) => {
     arcs
       .append("path")
       .attr("fill", function (d, i) {
-        // return color(i);
         return colorList[i];
       })
       .attr("d", arc);
@@ -80,11 +71,20 @@ export const PieGraph = (props) => {
         return d.value;
       });
   }
-
+  const colorObj = {
+    primaryColor: primaryColor,
+    highlightColor: highlightColor,
+    lightGrey: lightGrey,
+  };
   return (
     <>
-      <div>im the pie graph </div>;{/* <p>{primaryColor}</p> */}
-      <svg width={svgWidth} height={svgHeight} id={svgId}></svg>
+      <div style={{ paddingRight: "28%" }}>
+        <h4 style={{ marginBottom: "1rem", marginTop: "-1%" }}>
+          FY2020 Mail Product Count
+        </h4>
+        <svg width={svgWidth} height={svgHeight} id={svgId}></svg>
+        <PieGraphKey colorObj={colorObj} />
+      </div>
     </>
   );
 };
