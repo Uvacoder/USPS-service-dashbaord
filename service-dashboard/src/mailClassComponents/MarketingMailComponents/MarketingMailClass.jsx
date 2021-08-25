@@ -3,6 +3,8 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 
+import volData from "../../Data/volume.json";
+
 import { useState } from "react";
 
 import annualData from "../../Data/annualData.json";
@@ -12,6 +14,8 @@ import ProductCountTableData from "../../DashComponents/ProductCountTable";
 import VolumeChange from "../../DashComponents/VolumeChange";
 import ProductDropdown from "../../DashComponents/ProductDropdown";
 import ProductPage from "../ProductPage";
+
+import { lightGrey } from "../../Design/MyTheme";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,18 +47,13 @@ export const MarketingMail = (props) => {
 
   function changeProductSelected(e) {
     setSelectedProductId(e.target.id);
-    // console.log(selectedProductId);
   }
 
   const mmAnnualData = annualData.filter(
     (row) => row.class === "Marketing Mail"
   );
 
-  //grab real data later
-  const fakeVolData = {
-    fy2020: 123.7,
-    fy2019: 117.2,
-  };
+  let volDataMM = volData.filter((row) => row.mailClass === "MM");
 
   return (
     <div className={classes.root} id="allMdContainer">
@@ -83,13 +82,15 @@ export const MarketingMail = (props) => {
               </Paper>
             </Grid>
             <Grid item xs={3}>
-              <Paper className={classes.paper}>
-                <VolumeChange volData={fakeVolData} />
+              <Paper
+                className={classes.paper}
+                style={{ backgroundColor: lightGrey }}
+              >
+                <VolumeChange propData={volDataMM} />
               </Paper>
             </Grid>
           </Grid>
         </Grid>
-        {/* <Grid item xs={6}> */}
         <Paper className={classes.paperDropdown}>
           <ProductDropdown
             propData={mmAnnualData}

@@ -1,13 +1,20 @@
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import Divider from "@material-ui/core/Divider";
+
+import Typography from "@material-ui/core/Typography";
 
 import PieGraph from "../DashComponents/PieGraph";
-
 import topLevelPieData from "../Data/topLevelPieData.json";
-
 import MDCompositeContainer from "./allMarketDominantComponents/MDCompositeContainer";
+import VolumeChange from "../DashComponents/VolumeChange";
+import volumeData from "../Data/volume.json";
+import ProductCountTableMD from "../DashComponents/ProductCountTableMD";
+
+import { lightGrey } from "../Design/MyTheme";
+// import ProductCountTableMD from "../../DashComponents/ProductCountTableMD";
+// import ProductCountTableMD from "../DashComponents/ProductCountTableMD";
+// import ProductCountTableMD from "./DashComponents/ProductCountTableMD";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,6 +24,10 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary,
+  },
+  paperTopRow: {
+    paddingBottom: "10%",
+    minHeight: 450,
   },
 }));
 
@@ -30,29 +41,30 @@ export const AllMarketDominant = (props) => {
     (row) => row.dataSet === "missedTarget"
   );
 
+  const totalMDVol = volumeData.filter((row) => row.mailClass === "MD");
+
   return (
     <div className={classes.root} id="allMdContainer">
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <Paper className={classes.paper}>
-            USPS Service Performance Dashboard
-          </Paper>
-        </Grid>
-
+      <Grid item xs={12} style={{ marginBottom: "2%", marginTop: "1%" }}>
+        <div className={classes.root}>
+          <Typography variant="h4" component="h4" gutterBottom>
+            All Market Dominant Products
+          </Typography>
+        </div>
+      </Grid>
+      <Grid container spacing={4}>
         <Grid container alignItems="center" justifyContent="center" spacing={2}>
           <Grid item xs={5}>
-            <Paper className={classes.paper}>
-              <div id="topFirstClassGraphContainer">
-                <PieGraph propData={missesData} />
-              </div>
+            <Paper className={classes.paperTopRow}>
+              <PieGraph propData={missesData} />
             </Paper>
           </Grid>
-          <Divider xs={1} orientation="vertical" />
           <Grid item xs={5}>
-            <Paper className={classes.paper}>
-              <div id="topMarketingGraphContainer">
-                <MDCompositeContainer />
-              </div>
+            <Paper
+              className={classes.paperTopRow}
+              // style={{ paddingBottom: "10%", paddingTop: "1%" }}
+            >
+              <MDCompositeContainer />
             </Paper>
           </Grid>
         </Grid>
@@ -62,32 +74,25 @@ export const AllMarketDominant = (props) => {
         </Grid>
 
         <Grid container alignItems="center" justifyContent="center" spacing={2}>
-          <Grid item xs={5}>
+          <Grid item xs={8}>
             <Paper className={classes.paper}>
-              <div id="topFirstClassTableContainer">
-                i'm the fc table container
+              <div id="topEvents">
+                <ProductCountTableMD />
               </div>
             </Paper>
           </Grid>
-          <Divider xs={1} orientation="vertical" />
-          <Grid item xs={5}>
-            <Paper className={classes.paper}>
-              <div id="topFirstMarketingTableContainer"></div>
-            </Paper>
-          </Grid>
-        </Grid>
-        <Grid item xs={12}>
-          <div id="gridSpacing2"></div>
-        </Grid>
-        <Grid container alignItems="center" justifyContent="center" spacing={2}>
-          <Grid item xs={8}>
-            <Paper className={classes.paper}>
-              <div id="topEvents">i'm the events list</div>
-            </Paper>
-          </Grid>
           <Grid item xs={3}>
-            <Paper className={classes.paper}>
-              <div id="topAnnualVolume">annual Vol</div>
+            <Paper
+              className={classes.paper}
+              style={{
+                backgroundColor: lightGrey,
+                paddingTop: "-10%",
+                marginTop: "-60%",
+              }}
+            >
+              <div id="topAnnualVolume" style={{}}>
+                <VolumeChange propData={totalMDVol} />
+              </div>
             </Paper>
           </Grid>
         </Grid>

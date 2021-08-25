@@ -13,7 +13,7 @@ export const MDCompositeContainer = () => {
   );
 
   return (
-    <div>
+    <div style={{}}>
       <h3>Composite Scores </h3>
 
       <h5>First Class Letters and Flats</h5>

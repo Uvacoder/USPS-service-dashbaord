@@ -81,10 +81,10 @@ export const BarGraphSide = (props) => {
       .append("line")
       // .attr("x1", (d) => xScale(lineData.value))
       .attr("x1", (d) => xScale(d))
-      .attr("y1", barMarginTop)
+      .attr("y1", barMarginTop - barHeight)
       // .attr("x2", (d) => xScale(lineData.value))
       .attr("x2", (d) => xScale(d))
-      .attr("y2", barMarginTop + barHeight)
+      .attr("y2", barMarginTop + barHeight + 10)
       .style("stroke", highlightColor)
       .style("stroke-width", 2)
       .attr("class", `${mailClass}target`);

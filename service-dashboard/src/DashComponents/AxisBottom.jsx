@@ -29,7 +29,7 @@ export const AxisBottom = () => {
   }
 
   return (
-    <svg id="barAxisSvg" height={50} width={svgWidth}>
+    <svg id="barAxisSvg" height={75} width={svgWidth}>
       <text x={innerArea / 2} y={35} fontSize={11}>
         On-Time(%)
       </text>

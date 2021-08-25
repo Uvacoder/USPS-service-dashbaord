@@ -1,6 +1,7 @@
 import Typography from "@material-ui/core/Typography";
 import { Card, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { lightGrey } from "../Design/MyTheme";
 
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 
@@ -37,19 +38,59 @@ const useStyles = makeStyles({
 });
 
 export const VolumeChange = (props) => {
-  const { volData } = props;
+  const { propData } = props;
+
+  console.log("volCompoonent", propData);
+
+  const volumeData = propData[0];
+
+  console.log("volCompoonent", volumeData);
 
   const classes = useStyles();
 
-  const { fy2020, fy2019 } = volData;
-  const volChangePct = (fy2020 - fy2019) / fy2019;
+  const { FY2020, FY2019 } = volumeData;
 
-  console.log(volChangePct);
+  const volumeTextNumber = formatVolumeNumber(volumeData.FY2020);
+
+  let volChangePct = (FY2020 - FY2019) / FY2019;
+
+  const volumeChangeText = formatVolumeChangeNumber(volChangePct);
+
+  function formatVolumeNumber(rawNumber) {
+    let trailingLetter = "B";
+    let divisor = 1000000000;
+
+    if (rawNumber / divisor < 1) {
+      trailingLetter = "M";
+      divisor = divisor / 1000;
+    }
+
+    const outputNumber = rawNumber / divisor;
+
+    let stringNum;
+    if (trailingLetter === "M") {
+      stringNum = outputNumber.toFixed(0);
+    }
+
+    if (trailingLetter === "B") {
+      stringNum = outputNumber.toFixed(1);
+    }
+
+    return `${stringNum}${trailingLetter}`;
+  }
+
+  function formatVolumeChangeNumber(rawChange) {
+    rawChange = (rawChange * 100).toFixed(1);
+    if (rawChange < 0) {
+      rawChange *= -1;
+    }
+    return `${rawChange.toString()}%`;
+  }
 
   return (
     <div>
       <Typography variant="h5" gutterBottom className={classes.titleText}>
-        Total Volume {`${volData.fy2020}M`}
+        Total Volume: {`${volumeTextNumber}`}
       </Typography>
 
       <Typography variant="h5" gutterBottom className={classes.volText}>
@@ -58,7 +99,7 @@ export const VolumeChange = (props) => {
           className={classes.changeIcon}
           fontSize="small"
         />
-        23%
+        {volumeChangeText}
       </Typography>
     </div>
   );
