@@ -11,7 +11,7 @@ import VolumeChange from "../DashComponents/VolumeChange";
 import volumeData from "../Data/volume.json";
 import ProductCountTableMD from "../DashComponents/ProductCountTableMD";
 import DownloadButton from "../DashComponents/DownloadButton";
-import countData from "../Data/toLevelProductCounts.json";
+import annualDataFull from "../Data/annualData.json";
 
 import { lightGrey } from "../Design/MyTheme";
 
@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
   paperTopRow: {
     paddingBottom: "10%",
     minHeight: 450,
+    paddingTop: "2%",
   },
 }));
 
@@ -67,6 +68,7 @@ export const AllMarketDominant = (props) => {
           </Grid>
           <Grid item xs={5}>
             <Paper
+              style={{ marginTop: "-5%" }}
               className={classes.paperTopRow}
               // style={{ paddingBottom: "10%", paddingTop: "1%" }}
             >
@@ -103,7 +105,7 @@ export const AllMarketDominant = (props) => {
             <div style={{ marginTop: "10%" }}> </div>
             {/* <Paper> */}
             <DownloadButton
-              propData={countData}
+              propData={annualDataFull}
               dataName={"Market Dominant Data"}
             />
             {/* </Paper> */}

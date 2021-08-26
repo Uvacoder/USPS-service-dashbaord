@@ -27,21 +27,29 @@ export const MarketingMailClassGraph = (props) => {
   const { propData } = props;
 
   const [data, setData] = useState({});
-  //   const [toolTipData, setToolTipData] = useState("");
 
   useEffect(() => {
+    d3.selectAll(".nonBarQuarter").remove();
+
+    drawNonBarItems();
+
     setData(propData);
-
-    d3.selectAll(".nonBarQuarter").remove();
+    // removeBars();
     drawBars();
-  }, []);
 
-  useEffect(() => {
-    d3.selectAll(".nonBarQuarter").remove();
-
-    drawBars();
     transitionBars();
+    raiseBars();
+    raiseTargets();
   }, [data, propData]);
+
+  function raiseBars() {
+    d3.selectAll(".bar2019Quarter").raise();
+    d3.selectAll(".bar2020Quarter").raise();
+  }
+
+  function raiseTargets() {
+    d3.selectAll(".targetLines").raise();
+  }
 
   const topStart = graphHeight - marginBottom;
 
@@ -58,8 +66,6 @@ export const MarketingMailClassGraph = (props) => {
   }
 
   function drawBars() {
-    drawNonBarItems();
-
     const data2020 = propData.filter((row) => row.fy == 2020);
     const data2019 = propData.filter((row) => row.fy == 2019);
 
@@ -78,9 +84,9 @@ export const MarketingMailClassGraph = (props) => {
       .attr("fill", primaryColor)
       .attr("class", "graphicElementQuarter bar2019Quarter")
       .attr("id", (d) => `${d.pctOnTime}% on Time`)
-      .attr("hight", 0)
-      .transition()
-      .duration(600)
+      // .attr("hight", 0)
+      // .transition()
+      // .duration(600)
       .attr("height", (d) => yScale(d.pctOnTime));
 
     svg
@@ -93,9 +99,9 @@ export const MarketingMailClassGraph = (props) => {
       .attr("width", barWidth)
       .attr("fill", secondaryColor)
       .attr("class", "graphicElementQuarter bar2020Quarter")
-      .attr("hight", 0)
-      .transition()
-      .duration(600)
+      // .attr("hight", 0)
+      // .transition()
+      // .duration(600)
       .attr("height", (d) => yScale(d.pctOnTime));
   }
 
@@ -105,8 +111,6 @@ export const MarketingMailClassGraph = (props) => {
 
     const quarters = ["Q1", "Q2", "Q3", "Q4 "];
     const interBarMargin = getInterBarMargin(data2020);
-
-    drawNonBarItems();
 
     d3.selectAll(".bar2020Quarter")
       .data(data2020)
@@ -122,16 +126,6 @@ export const MarketingMailClassGraph = (props) => {
       .attr("height", (d) => yScale(d.pctOnTime))
       .attr("y", (d) => topStart - yScale(d.pctOnTime));
 
-    // drawNonBarItems();
-  }
-
-  function drawNonBarItems() {
-    const data2020 = propData.filter((row) => row.fy == 2020);
-    const data2019 = propData.filter((row) => row.fy == 2019);
-
-    const quarters = ["Q1", "Q2", "Q3", "Q4 "];
-    const interBarMargin = getInterBarMargin(data2020);
-
     svg
       .selectAll(".targetLines")
       .data(data2020)
@@ -144,6 +138,16 @@ export const MarketingMailClassGraph = (props) => {
       .style("stroke", highlightColor)
       .style("stroke-width", 2)
       .attr("class", "nonBarQuarter  graphicElementQuarter targetLines");
+
+    // drawNonBarItems();
+  }
+
+  function drawNonBarItems() {
+    const data2020 = propData.filter((row) => row.fy == 2020);
+    const data2019 = propData.filter((row) => row.fy == 2019);
+
+    const quarters = ["Q1", "Q2", "Q3", "Q4 "];
+    const interBarMargin = getInterBarMargin(data2020);
 
     svg
       .append("text")
@@ -172,14 +176,15 @@ export const MarketingMailClassGraph = (props) => {
       .append("g")
       .call(d3.axisLeft(yScaleRev).tickSize(-svgWidth).ticks(5))
       .attr("transform", `translate(${marginLeft},${marginTop})`)
-      .attr("class", " nonBarQuarter graphicElementQuarter axisTicks")
-      .style("z-index", -1);
+      .attr("class", " nonBarQuarter graphicElementQuarter axisTicks");
 
     d3.select(".domain").remove();
-    d3.selectAll(".axisTicks").selectAll("text").style("opacity", 1);
-    d3.selectAll("line").style("opacity", 0.3).style("z-index", -1);
+    d3.selectAll(".axisTicks").selectAll("text").style("opacity", 0.5);
+
+    d3.selectAll("line").style("opacity", 0.3);
     d3.selectAll(".targetLines").style("opacity", 1);
   }
+
   return (
     <div>
       <h3 fontFamily={textNodeFont}>Product-Level Quarterly Data</h3>
