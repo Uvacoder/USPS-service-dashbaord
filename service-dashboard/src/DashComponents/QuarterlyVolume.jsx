@@ -98,8 +98,6 @@ export const QuarterlyVolume = (props) => {
   }
 
   function transitionDots() {
-    console.log("data2020 from dots", data2020);
-
     const svg = d3.select("#qtrVolsvg");
 
     svg
@@ -245,7 +243,7 @@ export const QuarterlyVolume = (props) => {
           className={classes.headerText}
           style={{ fontSize: "20px", fontWeight: "bold" }}
         >
-          Quarterly Volume{" "}
+          FY 2020 Quarterly Volume
         </p>
         <p className={classes.headerText}> {currentProductName}</p>
       </div>

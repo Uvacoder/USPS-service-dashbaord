@@ -6,7 +6,6 @@ import { Grid, Paper, Divider } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import DownloadButton from "../DashComponents/DownloadButton";
-import countData from "../Data/toLevelProductCounts.json";
 
 export const ProductPage = (props) => {
   const { selectedProductId } = props;

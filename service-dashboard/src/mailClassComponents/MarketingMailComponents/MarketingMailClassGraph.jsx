@@ -196,7 +196,11 @@ export const MarketingMailClassGraph = (props) => {
         height={300}
         width={850}
       ></svg>
-      <GraphKey />
+      <GraphKey
+        level={"classlevel"}
+        bar2019={".bar2019"}
+        bar2020={".bar2020"}
+      />
       {/* <Tooltip toolTipData={toolTipData} /> */}
     </div>
   );

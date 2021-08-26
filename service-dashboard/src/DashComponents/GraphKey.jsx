@@ -7,21 +7,31 @@ import {
   textNodeFont,
 } from "../Design/MyTheme";
 
-export const GraphKey = () => {
-  d3.select("#key2019")
-    .on("mouseover", function () {
-      d3.selectAll(".bar2020").transition().duration(200).style("opacity", 0.2);
-    })
-    .on("mouseout", function () {
-      d3.selectAll(".bar2020").transition().duration(200).style("opacity", 1);
-    });
+export const GraphKey = (props) => {
+  const { bar2019, bar2020, level } = props;
 
-  d3.select("#key2020")
+  // console.log(props);
+
+  // console.log("graphkey ", level, bar2019, bar2020);
+
+  const id2019 = `key2019${level}`;
+  const id2020 = `key2020${level}`;
+
+  d3.select(`#${id2019}`)
     .on("mouseover", function () {
-      d3.selectAll(".bar2019").transition().duration(200).style("opacity", 0.2);
+      d3.selectAll(bar2020).transition().duration(200).style("opacity", 0.2);
     })
     .on("mouseout", function () {
-      d3.selectAll(".bar2019").transition().duration(200).style("opacity", 1);
+      d3.selectAll(bar2020).transition().duration(200).style("opacity", 1);
+    })
+    .on("click", () => console.log("clicked"));
+
+  d3.select(`#${id2020}`)
+    .on("mouseover", function () {
+      d3.selectAll(bar2019).transition().duration(200).style("opacity", 0.2);
+    })
+    .on("mouseout", function () {
+      d3.selectAll(bar2019).transition().duration(200).style("opacity", 1);
     });
 
   return (
@@ -32,7 +42,7 @@ export const GraphKey = () => {
         y={20}
         width={15}
         height={15}
-        id="key2019"
+        id={id2019}
       ></rect>
       <text x={39} y={30} fontFamily={textNodeFont}>
         FY2019
@@ -44,7 +54,7 @@ export const GraphKey = () => {
         y={20}
         width={15}
         height={15}
-        id="key2020"
+        id={id2020}
       ></rect>
       <text x={120} y={30} fontFamily={textNodeFont}>
         {" "}

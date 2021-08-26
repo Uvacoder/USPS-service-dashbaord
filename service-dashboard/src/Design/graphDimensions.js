@@ -28,16 +28,6 @@ export const {
   marginTop,
 } = classGraphDims;
 
-const sideGraphDims = {
-  svgWidth: 400,
-  svgHeight: 50,
-  marginLeft: 10,
-  marginRight1: 10,
-  innerArea: 380,
-};
-
-const { marginRight1 } = sideGraphDims;
-
 // const {
 //   marginBottom,
 //   graphHeight,

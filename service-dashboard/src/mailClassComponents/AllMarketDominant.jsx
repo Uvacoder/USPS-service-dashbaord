@@ -108,7 +108,6 @@ export const AllMarketDominant = (props) => {
               propData={annualDataFull}
               dataName={"Market Dominant Data"}
             />
-            {/* </Paper> */}
           </Grid>
         </Grid>
       </Grid>

@@ -26,7 +26,7 @@ export const MDCompositeContainer = () => {
 
       <AxisBottom />
 
-      <GraphKey />
+      <GraphKey level={"MDLevel"} bar2019={".MM2019"} bar2020={".MM2020"} />
     </div>
   );
 };

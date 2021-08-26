@@ -34,7 +34,6 @@ export const MarketingMailClassGraph = (props) => {
     drawNonBarItems();
 
     setData(propData);
-    // removeBars();
     drawBars();
 
     transitionBars();
@@ -195,7 +194,11 @@ export const MarketingMailClassGraph = (props) => {
         height={300}
         width={850}
       ></svg>
-      <GraphKey />
+      <GraphKey
+        level={"productLevel"}
+        bar2019={".bar2019Quarter"}
+        bar2020={".bar2020Quarter"}
+      />
     </div>
   );
 };

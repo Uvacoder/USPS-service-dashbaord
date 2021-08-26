@@ -40,15 +40,23 @@ export const ProductCountTableMD = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {countData.map((row) => (
-              <TableRow key={row.name}>
-                <TableCell component="th" scope="row">
+            {countData.map((row, ind) => (
+              <TableRow key={`row${ind}`}>
+                <TableCell component="th" scope="row" key={`row${ind}1`}>
                   {row.mailClass}
                 </TableCell>
-                <TableCell align="right">{row.totalProducts}</TableCell>
-                <TableCell align="right">{row.negativeChange}</TableCell>
-                <TableCell align="right">{row.positiveChange}</TableCell>
-                <TableCell align="right">{row.missing}</TableCell>
+                <TableCell align="right" key={`row${ind}2`}>
+                  {row.totalProducts}
+                </TableCell>
+                <TableCell align="right" key={`row${ind}3`}>
+                  {row.negativeChange}
+                </TableCell>
+                <TableCell align="right" key={`row${ind}4`}>
+                  {row.positiveChange}
+                </TableCell>
+                <TableCell align="right" key={`row${ind}5`}>
+                  {row.missing}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

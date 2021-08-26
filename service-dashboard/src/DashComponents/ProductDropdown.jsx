@@ -1,3 +1,5 @@
+import { useState, useRef } from "react";
+
 import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
 
@@ -28,7 +30,21 @@ const useStyles = makeStyles((theme) => ({
 export const ProductDropdown = (props) => {
   const { propData, selectedProductId, changeProductSelected } = props;
 
+  const [formValue, setFormValue] = useState(nameFromId(selectedProductId));
+
   const classes = useStyles();
+
+  function nameFromId(selectedProductId) {
+    selectedProductId = parseInt(selectedProductId);
+
+    if (selectedProductId === 0) {
+      return "none";
+    } else {
+      return propData.filter((row) => row.productId === selectedProductId)[0]
+        .product;
+    }
+  }
+  const inputRef = useRef();
 
   let productList = propData
     .filter((row) => row.fy === 2020)
@@ -41,14 +57,13 @@ export const ProductDropdown = (props) => {
     productId: 0,
   });
 
-  // console.log("productList", productList);
-
   const menuItems = productList.map((el, ind) => (
     <MenuItem
       key={`dropdown${ind}`}
       id={el.productId}
       onClick={changeProductSelected}
       value={el.product}
+      ref={inputRef}
     >
       {el.product}
     </MenuItem>
@@ -65,10 +80,7 @@ export const ProductDropdown = (props) => {
           </Grid>
           <Grid item xs={5}>
             <Select
-              // value={
-              //   productList.filter((row) => row.productId === selectedProductId)
-              //     .product
-              // }
+              value={nameFromId(selectedProductId)}
               className={classes.selectDropdown}
             >
               {menuItems}

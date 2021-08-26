@@ -22,6 +22,7 @@ export const BarGraphSide = (props) => {
 
   useEffect(() => {
     drawBars();
+    raiseTargets();
   });
 
   let rawData = propData[0];
@@ -34,8 +35,9 @@ export const BarGraphSide = (props) => {
 
   const svgId = `barSide${mailClass}svg`;
 
-  // const svgHeight = 50;
-  // const svgWidth = 400;
+  function raiseTargets() {
+    d3.selectAll(`.${mailClass}target`).raise();
+  }
 
   const barMarginTop = 10;
   const interBarMargin = 15;
@@ -74,7 +76,7 @@ export const BarGraphSide = (props) => {
     const lineData = [rawData.Target];
 
     svg
-      .selectAll(`${mailClass}target`)
+      .selectAll(`.${mailClass}target`)
       // .data(barData)
       .data(lineData)
       .enter()
