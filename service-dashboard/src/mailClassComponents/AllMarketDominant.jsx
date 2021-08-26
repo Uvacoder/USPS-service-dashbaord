@@ -10,11 +10,12 @@ import MDCompositeContainer from "./allMarketDominantComponents/MDCompositeConta
 import VolumeChange from "../DashComponents/VolumeChange";
 import volumeData from "../Data/volume.json";
 import ProductCountTableMD from "../DashComponents/ProductCountTableMD";
+import DownloadButton from "../DashComponents/DownloadButton";
+import countData from "../Data/toLevelProductCounts.json";
 
 import { lightGrey } from "../Design/MyTheme";
-// import ProductCountTableMD from "../../DashComponents/ProductCountTableMD";
-// import ProductCountTableMD from "../DashComponents/ProductCountTableMD";
-// import ProductCountTableMD from "./DashComponents/ProductCountTableMD";
+
+import { CSVLink } from "react-csv";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,6 +43,11 @@ export const AllMarketDominant = (props) => {
   );
 
   const totalMDVol = volumeData.filter((row) => row.mailClass === "MD");
+
+  const testData = [
+    { name: "matt", age: 31 },
+    { name: "maria", age: 30 },
+  ];
 
   return (
     <div className={classes.root} id="allMdContainer">
@@ -94,6 +100,13 @@ export const AllMarketDominant = (props) => {
                 <VolumeChange propData={totalMDVol} />
               </div>
             </Paper>
+            <div style={{ marginTop: "10%" }}> </div>
+            {/* <Paper> */}
+            <DownloadButton
+              propData={countData}
+              dataName={"Market Dominant Data"}
+            />
+            {/* </Paper> */}
           </Grid>
         </Grid>
       </Grid>

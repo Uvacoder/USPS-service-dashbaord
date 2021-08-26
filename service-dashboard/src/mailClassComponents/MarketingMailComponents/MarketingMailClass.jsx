@@ -15,6 +15,8 @@ import VolumeChange from "../../DashComponents/VolumeChange";
 import ProductDropdown from "../../DashComponents/ProductDropdown";
 import ProductPage from "../ProductPage";
 
+import DownloadButton from "../../DashComponents/DownloadButton";
+
 import { lightGrey } from "../../Design/MyTheme";
 
 const useStyles = makeStyles((theme) => ({
@@ -87,6 +89,13 @@ export const MarketingMail = (props) => {
                 style={{ backgroundColor: lightGrey }}
               >
                 <VolumeChange propData={volDataMM} />
+              </Paper>
+              <div style={{ marginTop: "30%" }}></div>
+              <Paper>
+                <DownloadButton
+                  propData={mmAnnualData}
+                  dataName={"Class-Level Data"}
+                />
               </Paper>
             </Grid>
           </Grid>

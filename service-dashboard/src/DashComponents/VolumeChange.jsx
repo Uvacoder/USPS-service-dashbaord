@@ -40,11 +40,7 @@ const useStyles = makeStyles({
 export const VolumeChange = (props) => {
   const { propData } = props;
 
-  console.log("volCompoonent", propData);
-
   const volumeData = propData[0];
-
-  console.log("volCompoonent", volumeData);
 
   const classes = useStyles();
 

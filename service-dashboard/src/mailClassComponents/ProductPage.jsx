@@ -5,6 +5,9 @@ import QuarterlyVolume from "../DashComponents/QuarterlyVolume";
 import { Grid, Paper, Divider } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
+import DownloadButton from "../DashComponents/DownloadButton";
+import countData from "../Data/toLevelProductCounts.json";
+
 export const ProductPage = (props) => {
   const { selectedProductId } = props;
 
@@ -65,6 +68,11 @@ const ProductPageFull = (props) => {
               <Paper className={classes.quarterlyContainer}>
                 <QuarterlyVolume propData={productData} />
               </Paper>
+              <div style={{ marginTop: "10%" }}></div>
+              <DownloadButton
+                propData={productData}
+                dataName={"Quarterly Data"}
+              />
             </Grid>
           </Grid>
         </div>
