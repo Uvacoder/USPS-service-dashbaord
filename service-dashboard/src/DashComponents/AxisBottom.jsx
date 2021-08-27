@@ -1,10 +1,9 @@
 import * as d3 from "d3";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 import {
   svgWidth,
-  svgHeight,
   marginLeft,
   marginRight,
   innerArea,

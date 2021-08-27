@@ -21,14 +21,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function getWindowDimensions() {
-  const { innerWidth: width, innerHeight: height } = window;
-  return {
-    width,
-    height,
-  };
-}
-
 export function toolTipMotion(xPoz, yPoz) {
   const tooltip = d3.select("#graphTooltip");
 
@@ -38,8 +30,6 @@ export function toolTipMotion(xPoz, yPoz) {
     .attr("x", xPoz)
     .attr("y", yPoz)
     .style("opacity", 1);
-
-  const tooltipText = d3.select("#tooltipText");
 }
 
 export function hideTooltip(event) {
@@ -49,7 +39,7 @@ export function hideTooltip(event) {
 }
 
 export const Tooltip = (props) => {
-  const { currentDotX, currentDotY, dotId } = props;
+  const { currentDotX, currentDotY } = props;
 
   useEffect(() => {
     toolTipMotion(currentDotX, currentDotY);

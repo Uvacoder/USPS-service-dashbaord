@@ -1,17 +1,11 @@
-import { orange } from "@material-ui/core/colors";
+import { createTheme } from "@material-ui/core/styles";
 
-import {
-  makeStyles,
-  ThemeProvider,
-  createTheme,
-} from "@material-ui/core/styles";
-
-const useStyles = makeStyles({
-  root: {
-    background: "green",
-    borderRadius: "20px",
-  },
-});
+// const useStyles = makeStyles({
+//   root: {
+//     background: "green",
+//     borderRadius: "20px",
+//   },
+// });
 
 export const colorPalleteMatt = {
   primaryColor: "#2CC6EB",
@@ -33,7 +27,7 @@ export const {
 
 export const lightGreyAgain = "#e6e8e6";
 
-const darkGrey = "#888a8c";
+// const darkGrey = "#888a8c";
 
 export const textNodeFont = "'Roboto', sans-serif";
 

@@ -15,8 +15,6 @@ import annualDataFull from "../Data/annualData.json";
 
 import { lightGrey } from "../Design/MyTheme";
 
-import { CSVLink } from "react-csv";
-
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -36,19 +34,11 @@ const useStyles = makeStyles((theme) => ({
 export const AllMarketDominant = (props) => {
   const classes = useStyles();
 
-  const changesData = topLevelPieData.filter(
-    (row) => row.dataSet === "changeCount"
-  );
   const missesData = topLevelPieData.filter(
     (row) => row.dataSet === "missedTarget"
   );
 
   const totalMDVol = volumeData.filter((row) => row.mailClass === "MD");
-
-  const testData = [
-    { name: "matt", age: 31 },
-    { name: "maria", age: 30 },
-  ];
 
   return (
     <div className={classes.root} id="allMdContainer">

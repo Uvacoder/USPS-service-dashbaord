@@ -1,12 +1,10 @@
 import * as d3 from "d3";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 import {
   primaryColor,
   secondaryColor,
   highlightColor,
-  textNodeFont,
-  lightGrey,
 } from "../Design/MyTheme";
 
 import {
@@ -14,7 +12,6 @@ import {
   svgHeight,
   marginLeft,
   marginRight,
-  innerArea,
 } from "../Design/graphDimensionsSide";
 
 export const BarGraphSide = (props) => {

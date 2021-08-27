@@ -1,5 +1,4 @@
 import "./App.css";
-import * as d3 from "d3";
 import { ThemeProvider } from "@material-ui/core/styles";
 
 import myTheme from "./Design/MyTheme";

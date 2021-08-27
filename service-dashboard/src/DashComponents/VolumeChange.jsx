@@ -1,7 +1,5 @@
 import Typography from "@material-ui/core/Typography";
-import { Card, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { lightGrey } from "../Design/MyTheme";
 
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 

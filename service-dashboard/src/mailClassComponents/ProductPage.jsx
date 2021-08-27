@@ -14,8 +14,6 @@ export const ProductPage = (props) => {
 
   const productData = data.filter((row) => row.productId === productId);
 
-  let renderedProduct;
-
   let renderedSection;
 
   if (productId && productId !== 0) {
@@ -37,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
   quarterlyContainer: {
     minWidth: 315,
   },
-  fullProductContainer: {},
   productGraphContainer: {
     minwidth: 700,
   },

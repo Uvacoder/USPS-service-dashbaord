@@ -1,24 +1,16 @@
 import * as d3 from "d3";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import PieGraphKey from "./PieGraphKey";
 
-import {
-  primaryColor,
-  secondaryColor,
-  highlightColor,
-  lightGrey,
-  alternateHighlight,
-  alternateSecondary,
-} from "../Design/MyTheme";
+import { primaryColor, highlightColor, lightGrey } from "../Design/MyTheme";
 
 export const PieGraph = (props) => {
   const { propData } = props;
 
-  const [data, setData] = useState(propData);
+  // const [data, setData] = useState(propData);
 
   useEffect(() => {
     drawPie();
-    // drawRect();
   });
 
   const dataSet = propData[0].dataSet;

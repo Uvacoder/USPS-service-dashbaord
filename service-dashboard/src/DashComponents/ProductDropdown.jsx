@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
 
 import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
@@ -22,15 +22,12 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
   },
   dropdownLabel: {
-    // marginLeft: "-20%",
     color: "black",
   },
 }));
 
 export const ProductDropdown = (props) => {
   const { propData, selectedProductId, changeProductSelected } = props;
-
-  const [formValue, setFormValue] = useState(nameFromId(selectedProductId));
 
   const classes = useStyles();
 

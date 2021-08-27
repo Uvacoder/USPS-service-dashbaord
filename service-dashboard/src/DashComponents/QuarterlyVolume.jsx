@@ -38,7 +38,6 @@ export const QuarterlyVolume = (props) => {
 
   const margin = { top: 10, right: 5, bottom: 10, left: 20 };
   const svgHeight = 200 - margin.top - margin.bottom;
-  const svgWdight = 350 - margin.right - margin.left;
   const interDotX = 95;
 
   const data2020 = propData.filter((row) => row.fy === 2020);
@@ -129,11 +128,12 @@ export const QuarterlyVolume = (props) => {
           .text(tooltipTextChange(currentDotId, data2020))
           .transition()
           .duration(300)
-          .style("opacity", 1);
+          .style("opacity", 1)
+          .style("stroke", "black");
       })
       .on("mouseout", () => {
         d3.select("#lineTooltip").remove();
-        d3.select("#lineTooltip").style("opacity", 0);
+        // d3.select("#lineTooltip").style("opacity", 0);
         d3.select("#tooltipText").remove();
       })
       .transition()
