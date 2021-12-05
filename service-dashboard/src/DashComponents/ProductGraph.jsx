@@ -25,10 +25,10 @@ export const MarketingMailClassGraph = (props) => {
 
   const [data, setData] = useState({});
 
-  const [xHover, setXHover] = useState(0);
-  const [yHover, setYHover] = useState(0);
+  // const [xHover, setXHover] = useState(0);
+  // const [yHover, setYHover] = useState(0);
 
-  useEffect(allGraphFunctions, [data, propData]);
+  useEffect(allGraphFunctions, drawBars, drawNonBarItems, transsitionBars, [data, propData]);
 
   const tooltipWidth = 150;
   const tooltipHeight = 50;
