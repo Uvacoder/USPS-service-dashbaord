@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 const ProductPageFull = (props) => {
   const classes = useStyles();
 
-  const { productId, productData } = props;
+  const productData = props;
 
   return (
     <>
